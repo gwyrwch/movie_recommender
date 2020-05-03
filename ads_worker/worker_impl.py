@@ -24,9 +24,9 @@ class Worker(object):
         candidates = []
         for movie in self.config['movies']:
             id = movie['id']
-            print(id)
+            # print(id)
             movie_vec = self.movie_vectors.loc[id].to_numpy()
-            print(movie_vec)
+            # print(movie_vec)
             candidates.append(
                 {
                     'movie_id': id,
@@ -34,6 +34,8 @@ class Worker(object):
                 }
             )
         candidates.sort(key=lambda x: -x['fit'])
+        if len(candidates) > 10:
+            candidates = candidates[0:10]
         print(candidates)
         return {
             'candidates': candidates

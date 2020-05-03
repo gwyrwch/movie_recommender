@@ -32,17 +32,18 @@ class Meta(object):
         my_vector = self.user_vectors.loc[uid]
         candidates = []
 
-        print(my_vector.tolist())
         for addr in self.get_worker_address():
             response = requests.get(addr + '/worker/', json={
                 'user_vec': my_vector.tolist()
             })
             if response.status_code == 200:
                 for cand in response.json()['candidates']:
-                    candidates.append({
-                        'movie': MovieCollection().get_movie(cand['movie_id']),
-                        'fit': cand['fit']
-                    })
+                    movie = MovieCollection().get_movie(cand['movie_id'])
+                    if movie is not None:
+                        candidates.append({
+                            'movie': movie,
+                            'fit': cand['fit']
+                        })
         candidates.sort(key=lambda x: -x['fit'])
         if len(candidates) > 10:
             candidates = candidates[:10]

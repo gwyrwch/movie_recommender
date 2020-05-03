@@ -16,4 +16,8 @@ class MovieCollection:
         return cls.instance
 
     def get_movie(self, id):
-        return Movie(id, self.movies.loc[str(id)])
+        try:
+            return Movie(id, self.movies.loc[str(id)])
+        except KeyError:
+            return None
+
