@@ -1,0 +1,14 @@
+{
+  "movie_vec": "./ads_worker/movie_vectors/1.csv",
+  "movies": [
+    {
+      "id": 2
+    },
+    {
+      "id": 3
+    },
+    {
+      "id": 5
+    }
+  ]
+}

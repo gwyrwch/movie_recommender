@@ -1,0 +1,8 @@
+{
+  "workers": [
+    {
+      "address": "http://127.0.0.1:8001"
+    }
+  ],
+  "user_vec": "ads_recommender/user_vectors.csv"
+}
