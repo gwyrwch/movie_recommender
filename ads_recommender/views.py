@@ -10,23 +10,26 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.views import View
 
-from django.conf import settings
-
-from ads.movie import Movie
 from ads_recommender.meta_impl import Meta
 
 
-def index(request):
-    if request.user.is_authenticated:
-        uid = request.user.id
-        context = {
-            'uid': uid,
-            'candidates': Meta().calc_candidates(uid)
-        }
-        return render(request, "index.html", context=context)
-    else:
-        return HttpResponseRedirect(redirect_to='/sign_in')
+class Index(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            uid = request.user.id
+            candidates = Meta().calc_candidates(uid)
+            context = {
+                'username': request.user.username,
+                'candidates': candidates,
+            }
+            if len(candidates) == 0:
+                context['special_list'] = Meta().get_special_list()
+            return render(request, "index.html", context=context)
+        else:
+            return HttpResponseRedirect(redirect_to='/sign_in')
 
+    def post(self, request):
+        return HttpResponseRedirect('/')
 
 class SignUp(View):
     def get(self, request):

@@ -1,63 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <title>ads recommender</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static "css/main.css" %}">
 </head>
 <body>
 <header class="bg-primary text-center py-5 mb-4">
   <div class="container">
-    <h1 class="font-weight-light text-white">Find your movie</h1>
+    <h1 class="font-weight-light text-white">Find your movie, {{ username }}</h1>
   </div>
 </header>
 
 <!-- Page Content -->
 <div class="container">
   <div class="row">
-    <!-- Team Member 1 -->
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-0 shadow">
-        <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title mb-0">Team Member</h5>
-          <div class="card-text text-black-50">Web Developer</div>
+      {% for movie in candidates %}
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="vote">
+                  {{ movie.vote_average }}
+            </div>
+          <div class="card border-0 shadow">
+            <img src="{{ movie.poster_path }}" class="card-img-top" alt="...">
+            <div class="card-body text-center">
+              <h5 class="card-title mb-0">{{ movie.title }}</h5>
+
+                <div class="card-text text-muted" style="font-size: smaller;">
+                    {%for g in movie.genres %}
+                        {{ g }}
+                        {% if not forloop.last%},
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+              <div class="card-text text-black-50" style="margin-top: 20px;">{{ movie.tagline }}</div>
+                <div style="margin-top: 20px;">
+                Popularity:
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" aria-valuenow="{{ movie.popularity }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ movie.popularity }}%;">
+                  </div>
+                </div>
+                </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <!-- Team Member 2 -->
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-0 shadow">
-        <img src="https://source.unsplash.com/9UVmlIb0wJU/500x350" class="card-img-top" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title mb-0">Team Member</h5>
-          <div class="card-text text-black-50">Web Developer</div>
-        </div>
-      </div>
-    </div>
-    <!-- Team Member 3 -->
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-0 shadow">
-        <img src="https://source.unsplash.com/sNut2MqSmds/500x350" class="card-img-top" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title mb-0">Team Member</h5>
-          <div class="card-text text-black-50">Web Developer</div>
-        </div>
-      </div>
-    </div>
-    <!-- Team Member 4 -->
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-0 shadow">
-        <img src="https://source.unsplash.com/ZI6p3i9SbVU/500x350" class="card-img-top" alt="...">
-        <div class="card-body text-center">
-          <h5 class="card-title mb-0">Team Member</h5>
-          <div class="card-text text-black-50">Web Developer</div>
-        </div>
-      </div>
-    </div>
+      {% empty %}
+          {% csrf_token %}
+          <form method="post" class="row">
+                <div class="row" style="width: 100%; margin: 30px;">
+                <div class="col-xl-6">
+                      <h2 class="font-weight-light text-blue">
+                        Select movies to start and click:
+                      </h2>
+                  </div>
+                  <div class="col-xl-6">
+                      <input class="btn btn-primary" style="width: 100%; height: 150%;" type="submit">
+                  </div>
+              </div>
+
+              <hr style="margin-top: 30px; width: 100%;">
+
+              {% for movie in special_list %}
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="vote">
+                          {{ movie.vote_average }}
+                    </div>
+                  <div class="card border-0 shadow">
+                    <img src="{{ movie.poster_path }}" class="card-img-top" alt="...">
+                    <div class="card-body text-center">
+                      <h5 class="card-title mb-0">{{ movie.title }}</h5>
+
+                        <div class="card-text text-muted" style="font-size: smaller;">
+                            {%for g in movie.genres %}
+                                {{ g }}
+                                {% if not forloop.last%},
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                      <div class="card-text text-black-50" style="margin-top: 20px;">{{ movie.tagline }}</div>
+                        <div style="margin-top: 20px;">
+                        Popularity:
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="{{ movie.popularity }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ movie.popularity }}%;">
+                          </div>
+                        </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+          {% endfor %}
+            </form>
+      {% endfor %}
+
+
   </div>
   <!-- /.row -->
-
 </div>
 {#    HI {{ uid }}!#}
 {##}

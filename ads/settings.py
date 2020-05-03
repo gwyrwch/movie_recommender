@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from ads_recommender.meta_impl import Meta
+from ads_worker.worker_impl import Worker
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -131,7 +134,11 @@ import json
 if IS_META:
     META_CONFIG_PATH = os.path.join(BASE_DIR, 'ads_recommender/config.json')
     META_CONFIG = json.load(open(META_CONFIG_PATH))
-else:
-    CFG_PATH = os.path.join(BASE_DIR, 'ads_worker/config/1.json')  # todo input from input(),--no-reload
+    Meta()
 
+else:
+    shard = int(input('What shard to run?\n'))
+    CFG_PATH = os.path.join(BASE_DIR, 'ads_worker/config/{}.json'.format(shard))  # todo input from input(),--no-reload
     CONFIG = json.load(open(CFG_PATH))
+
+    Worker()

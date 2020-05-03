@@ -1,8 +1,84 @@
 {
   "workers": [
     {
-      "address": "http://127.0.0.1:8001"
-    }
+      "address": "http://127.0.0.1:8001",
+      "shard": 1
+    },
+    {
+      "address": "http://127.0.0.1:8002",
+      "shard": 1
+    },
+    {
+      "address": "http://127.0.0.1:8003",
+      "shard": 2
+    },
+    {
+      "address": "http://127.0.0.1:8004",
+      "shard": 2
+    },
+    {
+      "address": "http://127.0.0.1:8005",
+      "shard": 3
+    },
+    {
+      "address": "http://127.0.0.1:8006",
+      "shard": 3
+    },
+    {
+      "address": "http://127.0.0.1:8007",
+      "shard": 4
+    },
+    {
+      "address": "http://127.0.0.1:8008",
+      "shard": 4
+    },
+    {
+      "address": "http://127.0.0.1:8009",
+      "shard": 5
+    },
+    {
+      "address": "http://127.0.0.1:8010",
+      "shard": 5
+    },{
+      "address": "http://127.0.0.1:8011",
+      "shard": 6
+    },
+    {
+      "address": "http://127.0.0.1:8012",
+      "shard": 6
+    },
+    {
+      "address": "http://127.0.0.1:8013",
+      "shard": 7
+    },
+    {
+      "address": "http://127.0.0.1:8014",
+      "shard": 7
+    },
+    {
+      "address": "http://127.0.0.1:8015",
+      "shard": 8
+    },
+    {
+      "address": "http://127.0.0.1:8016",
+      "shard": 8
+    },
+    {
+      "address": "http://127.0.0.1:8017",
+      "shard": 9
+    },
+    {
+      "address": "http://127.0.0.1:8018",
+      "shard": 9
+    },
+    {
+      "address": "http://127.0.0.1:8019",
+      "shard": 10
+    },
+    {
+      "address": "http://127.0.0.1:8020",
+      "shard": 10
+}
   ],
   "user_vec": "ads_recommender/user_vectors.csv"
 }
