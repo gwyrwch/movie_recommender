@@ -4,7 +4,7 @@ from _md5 import md5
 import requests
 import json
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.contrib.auth.models import User
 
@@ -31,7 +31,13 @@ class Index(View):
             return HttpResponseRedirect(redirect_to='/sign_in')
 
     def post(self, request):
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(redirect_to='/')
+
+
+def logout_view(request):
+    logout(request)
+
+    return HttpResponseRedirect(redirect_to='/sign_in')
 
 
 class SignUp(View):
