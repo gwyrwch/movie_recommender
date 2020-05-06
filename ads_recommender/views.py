@@ -1,3 +1,4 @@
+import time
 from _md5 import md5
 
 import requests
@@ -9,6 +10,7 @@ from django.contrib.auth.models import User
 
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 
 from ads_recommender.meta_impl import Meta
 
@@ -30,6 +32,7 @@ class Index(View):
 
     def post(self, request):
         return HttpResponseRedirect('/')
+
 
 class SignUp(View):
     def get(self, request):
@@ -67,3 +70,12 @@ class SignIn(View):
             return HttpResponseRedirect(redirect_to='/')
 
         return HttpResponseRedirect(redirect_to='/sign_in')
+
+
+@csrf_exempt
+def submit_movies(request):
+    movies = json.loads(request.body).get('movies')
+    if not movies:
+        return HttpResponse()
+    Meta().create_user(request.user.id, movies)
+    return HttpResponse()

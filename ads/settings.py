@@ -135,10 +135,9 @@ if IS_META:
     META_CONFIG_PATH = os.path.join(BASE_DIR, 'ads_recommender/config.json')
     META_CONFIG = json.load(open(META_CONFIG_PATH))
     Meta()
-
 else:
     shard = int(input('What shard to run?\n'))
-    CFG_PATH = os.path.join(BASE_DIR, 'ads_worker/config/{}.json'.format(shard))  # todo input from input(),--no-reload
+    CFG_PATH = os.path.join(BASE_DIR, 'ads_worker/config/{}.json'.format(shard))
     CONFIG = json.load(open(CFG_PATH))
 
     Worker()
